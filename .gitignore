@@ -1,0 +1,8 @@
+# Customary CMake build folder
+/build
+
+# Eclipse ignorables
+.cproject
+.project
+.settings
+
