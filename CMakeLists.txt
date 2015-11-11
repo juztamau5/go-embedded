@@ -22,6 +22,9 @@ include(ExternalProject)
 #
 ################################################################################
 
+set(IPFS_REPO https://github.com/ipfs/go-ipfs)
+set(IPFS_VERSION master) # Must use master, go get can't deal with branches or tags
+
 # Resolve the version to a commit
 execute_process(COMMAND ${GIT_EXECUTABLE} ls-remote
                 https://github.com/ipfs/go-ipfs ${IPSF_VERSION}
@@ -42,8 +45,8 @@ endif()
 #set(IPSF_LDFLAGS "-ldflags=\"-X github.com/ipfs/go-ipfs/repo/config.CurrentCommit=${IPSF_COMMIT}\"")
 
 externalproject_add(go-ipfs
-                    GIT_REPOSITORY https://github.com/ipfs/go-ipfs
-                    GIT_TAG ${IPSF_COMMIT}
+                    GIT_REPOSITORY ${IPFS_REPO}
+                    GIT_TAG ${IPFS_VERSION}
                     CONFIGURE_COMMAND ${GO_EXECUTABLE} get -u github.com/ipfs/go-ipfs/cmd/ipfs
                     BUILD_COMMAND cd cmd/ipfs && ${GO_EXECUTABLE} build -buildmode=c-archive "${IPSF_LDFLAGS}"
                     BUILD_IN_SOURCE 1)
