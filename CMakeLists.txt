@@ -12,44 +12,48 @@ enable_language(CXX)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-find_package(Git)
 find_package(Go 1.5 REQUIRED)
 include(ExternalProject)
 
 ################################################################################
 #
-#  Build IPSF
+#  Configure Go and build IPSF
 #
 ################################################################################
 
-set(IPFS_REPO https://github.com/ipfs/go-ipfs)
-set(IPFS_VERSION master) # Must use master, go get can't deal with branches or tags
+if (GO_FOUND)
+  # IPSF repo, without the leading protocol
+  set(IPSF_REPO github.com/juztamau5/go-ipfs)
 
-# Resolve the version to a commit
-execute_process(COMMAND ${GIT_EXECUTABLE} ls-remote
-                https://github.com/ipfs/go-ipfs ${IPSF_VERSION}
-                RESULT_VARIABLE RESULT
-                OUTPUT_VARIABLE OUTPUT)
+  # For more information, run `go help environment`
+  set(ENV{GOPATH} "${CMAKE_BINARY_DIR}")
 
-if("${OUTPUT}" STREQUAL "")
-  message(FATAL_ERROR "Failed to determine IPSF commit hash for ${IPSF_VERSION}")
+  # Available OSes: linux, darwin, windows, android, netbsd, ...?
+  set(ENV{GOOS} linux) # TODO
+
+  # Available architectures: amd64, 386, arm, arm64, ppc64, ppc64le, ...?
+  set(ENV{GOARCH} amd64) # TODO
+
+  # cgo is disabled by default when cross-compiling (https://golang.org/cmd/cgo)
+  set(ENV{CGO_ENABLED} 1)
+
+  message(STATUS "Fetching and building IPFS for $ENV{GOOS}_$ENV{GOARCH}")
+
+  execute_process(COMMAND ${GO_EXECUTABLE} get -u -v -buildmode=c-archive ${IPSF_REPO}/cmd/ipfs)
+
+  set(IPSF_OUTPUT_DIR "$ENV{GOPATH}/pkg/$ENV{GOOS}_$ENV{GOARCH}/${IPSF_REPO}/cmd")
+
+  set(IPSF_LIBRARY "${IPSF_OUTPUT_DIR}/ipfs${CMAKE_STATIC_LIBRARY_SUFFIX}")
+
+  if (NOT EXISTS ${IPSF_LIBRARY})
+    message(FATAL_ERROR "Can't find IPFS library: ${IPSF_LIBRARY}")
+  endif()
+
+  include_directories(${IPSF_OUTPUT_DIR})
+else()
+  # Change warning to status when go-ipfs no longer required
+  message(WARNING "Go not found. Continuing without go-ipfs")
 endif()
-
-string(REGEX MATCHALL "^([a-f0-9]+)" IPSF_COMMIT ${OUTPUT})
-
-if("${IPSF_COMMIT}" STREQUAL "")
-  message(FATAL_ERROR "Failed to extract commit hash from \"${OUTPUT}\"")
-endif()
-
-# Set link flags
-#set(IPSF_LDFLAGS "-ldflags=\"-X github.com/ipfs/go-ipfs/repo/config.CurrentCommit=${IPSF_COMMIT}\"")
-
-externalproject_add(go-ipfs
-                    GIT_REPOSITORY ${IPFS_REPO}
-                    GIT_TAG ${IPFS_VERSION}
-                    CONFIGURE_COMMAND ${GO_EXECUTABLE} get -u github.com/ipfs/go-ipfs/cmd/ipfs
-                    BUILD_COMMAND cd cmd/ipfs && ${GO_EXECUTABLE} build -buildmode=c-archive "${IPSF_LDFLAGS}"
-                    BUILD_IN_SOURCE 1)
 
 ################################################################################
 #
@@ -57,12 +61,14 @@ externalproject_add(go-ipfs
 #
 ################################################################################
 
-set(IPSF_SOURCES)
+set(IPSF_EMBEDDED_SOURCES)
 
 set(STANDALONE_SOURCES
     src/main.cpp)
 
-set(DEPLIBS)
+set(DEPLIBS
+    ${IPSF_LIBRARY}
+    pthread)
 
 ################################################################################
 #
@@ -70,7 +76,7 @@ set(DEPLIBS)
 #
 ################################################################################
 
-add_executable(ipfs_embedded ${STANDALONE_SOURCES})
+add_executable(ipfs_embedded ${IPSF_SOURCES} ${STANDALONE_SOURCES})
 
 target_link_libraries(ipfs_embedded ${DEPLIBS})
 
