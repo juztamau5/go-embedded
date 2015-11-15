@@ -61,10 +61,15 @@ endif()
 #
 ################################################################################
 
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
 set(IPSF_EMBEDDED_SOURCES)
 
 set(STANDALONE_SOURCES
     src/main.cpp)
+
+set(LIBRARY_SOURCES
+    src/lib.cpp)
 
 set(DEPLIBS
     ${IPSF_LIBRARY}
@@ -79,6 +84,14 @@ set(DEPLIBS
 add_executable(ipfs_embedded ${IPSF_SOURCES} ${STANDALONE_SOURCES})
 
 target_link_libraries(ipfs_embedded ${DEPLIBS})
+
+################################################################################
+#
+#  Library target
+#
+################################################################################
+
+add_library(ipfs STATIC ${IPSF_SOURCES} ${LIBRARY_SOURCES})
 
 ################################################################################
 #
@@ -97,4 +110,3 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     # Update if necessary
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -Wpedantic")
 endif()
-
