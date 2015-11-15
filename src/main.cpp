@@ -20,10 +20,29 @@
  * THE SOFTWARE.
  */
 
-#include <cstdio>
+#include "ipfs.h"
+
+#include <sstream>
+#include <string>
 
 int main(int argc, const char* argv[])
 {
-  std::printf("Hello world\n");
+  std::stringstream args;
+
+  for (int i = 0; i < argc; i++)
+  {
+    args << argv[i];
+    if (i + 1 != argc)
+      args << " ";
+  }
+
+  std::string strArgs(args.str());
+
+  GoString str;
+  str.p = const_cast<char*>(strArgs.c_str());
+  str.n = static_cast<GoInt>(strArgs.length());
+  runMain(str);
+
+  return 0;
 }
 
