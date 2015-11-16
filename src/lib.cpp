@@ -54,7 +54,7 @@ void init(unsigned int bits, const char* passphrase, bool force)
 {
   std::stringstream cmd;
 
-  cmd << "init";
+  cmd << "ipfs init";
   cmd << " -b " << bits;
   if (passphrase && *passphrase != '\0')
     cmd << " -p " << passphrase;
@@ -67,7 +67,7 @@ void add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_
 {
   std::stringstream cmd;
 
-  cmd << "add";
+  cmd << "ipfs add";
   cmd << " " << (path ? path : "");
   cmd << " -r " << (recursive ? "true" : "false");
   cmd << " -q " << (quiet ? "true" : "false");
@@ -82,7 +82,7 @@ void cat(const char* ipfs_path)
 {
   std::stringstream cmd;
 
-  cmd << "cat";
+  cmd << "ipfs cat";
   cmd << " " << (ipfs_path ? ipfs_path : "");
 
   invoke(cmd.str());
@@ -92,7 +92,7 @@ void get(const char* ipfs_path, const char* output, bool archive, bool compress,
 {
   std::stringstream cmd;
 
-  cmd << "get";
+  cmd << "ipfs get";
   cmd << " " << (ipfs_path ? ipfs_path : "");
   if (output && *output != '\0')
     cmd << " -o " << output;
@@ -108,7 +108,7 @@ void ls(const char* ipfs_path)
 {
   std::stringstream cmd;
 
-  cmd << "ls";
+  cmd << "ipfs ls";
   cmd << " " << (ipfs_path ? ipfs_path : "");
 
   invoke(cmd.str());
@@ -118,7 +118,7 @@ void refs(const char* ipfs_path, const char* format, bool edges, bool unique, bo
 {
   std::stringstream cmd;
 
-  cmd << "refs";
+  cmd << "ipfs refs";
   cmd << " " << (ipfs_path ? ipfs_path : "");
   if (format && *format != '\0')
     cmd << " -format " << format;
@@ -133,7 +133,7 @@ void refs_local(void)
 {
   std::stringstream cmd;
 
-  cmd << "refs local";
+  cmd << "ipfs refs local";
 
   invoke(cmd.str());
 }
@@ -142,7 +142,7 @@ void block_put(const char* data)
 {
   std::stringstream cmd;
 
-  cmd << "block put";
+  cmd << "ipfs block put";
   cmd << " " << (data ? data : "");
 
   invoke(cmd.str());
@@ -152,7 +152,7 @@ void block_stat(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "block stat";
+  cmd << "ipfs block stat";
   cmd << " " << (key ? key : "");
 
   invoke(cmd.str());
@@ -162,7 +162,7 @@ void block_get(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "block get";
+  cmd << "ipfs block get";
   cmd << " " << (key ? key : "");
 
   invoke(cmd.str());
@@ -172,7 +172,7 @@ void object_data(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "object data";
+  cmd << "ipfs object data";
   cmd << " " << (key ? key : "");
 
   invoke(cmd.str());
@@ -182,7 +182,7 @@ void object_links(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "object links";
+  cmd << "ipfs object links";
   cmd << " " << (key ? key : "");
 
   invoke(cmd.str());
@@ -192,7 +192,7 @@ void object_get(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "object get";
+  cmd << "ipfs object get";
   cmd << " " << (key ? key : "");
 
   invoke(cmd.str());
@@ -202,7 +202,7 @@ void object_put(const char* data)
 {
   std::stringstream cmd;
 
-  cmd << "object put";
+  cmd << "ipfs object put";
   cmd << " " << (data ? data : "");
 
   invoke(cmd.str());
@@ -212,7 +212,7 @@ void object_stat(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "object stat";
+  cmd << "ipfs object stat";
   cmd << " " << (key ? key : "");
 
   invoke(cmd.str());
@@ -222,7 +222,7 @@ void daemon(bool init, const char* routing, bool mount, bool writable, const cha
 {
   std::stringstream cmd;
 
-  cmd << "daemon";
+  cmd << "ipfs daemon";
   cmd << " -init " << (init ? "true" : "false");
   if (routing && *routing != '\0')
     cmd << " -routing " << routing;
@@ -240,7 +240,7 @@ void mount(const char* f, const char* n)
 {
   std::stringstream cmd;
 
-  cmd << "mount";
+  cmd << "ipfs mount";
   if (f && *f != '\0')
     cmd << " -f " << f;
   if (n && *n != '\0')
@@ -253,7 +253,7 @@ void name_publish(const char* name, const char* ipfs_path)
 {
   std::stringstream cmd;
 
-  cmd << "name publish";
+  cmd << "ipfs name publish";
   if (name && *name != '\0')
     cmd << " " << name;
   if (ipfs_path && *ipfs_path != '\0')
@@ -266,7 +266,7 @@ void name_resolve(const char* name)
 {
   std::stringstream cmd;
 
-  cmd << "name resolve";
+  cmd << "ipfs name resolve";
   if (name && *name != '\0')
     cmd << " " << name;
 
@@ -277,7 +277,7 @@ void pin_rm(const char* ipfs_path, bool recursive)
 {
   std::stringstream cmd;
 
-  cmd << "pin rm";
+  cmd << "ipfs pin rm";
   if (ipfs_path && *ipfs_path != '\0')
     cmd << " " << ipfs_path;
   cmd << " -r " << (recursive ? "true" : "false");
@@ -289,7 +289,7 @@ void pin_ls(const char* type)
 {
   std::stringstream cmd;
 
-  cmd << "pin ls";
+  cmd << "ipfs pin ls";
   if (type && *type != '\0')
     cmd << " -t " << type;
 
@@ -300,7 +300,7 @@ void pin_add(const char* ipfs_path, bool recursive)
 {
   std::stringstream cmd;
 
-  cmd << "pin add";
+  cmd << "ipfs pin add";
   if (ipfs_path && *ipfs_path != '\0')
     cmd << " " << ipfs_path;
   cmd << " -r " << (recursive ? "true" : "false");
@@ -312,7 +312,7 @@ void repo_gc(bool quiet)
 {
   std::stringstream cmd;
 
-  cmd << "repo gc";
+  cmd << "ipfs repo gc";
   cmd << " -q " << (quiet ? "true" : "false");
 
   invoke(cmd.str());
@@ -322,7 +322,7 @@ void network_id(const char* peer_id)
 {
   std::stringstream cmd;
 
-  cmd << "id";
+  cmd << "ipfs id";
   if (peer_id && *peer_id != '\0')
     cmd << " " << peer_id;
 
@@ -333,7 +333,7 @@ void bootstrap_list(void)
 {
   std::stringstream cmd;
 
-  cmd << "bootstrap list";
+  cmd << "ipfs bootstrap list";
 
   invoke(cmd.str());
 }
@@ -342,7 +342,7 @@ void bootstrap_add(const char* peer, bool default_nodes)
 {
   std::stringstream cmd;
 
-  cmd << "bootstrap add";
+  cmd << "ipfs bootstrap add";
   if (peer && *peer != '\0')
     cmd << " " << peer;
   cmd << " -default " << (default_nodes ? "true" : "false");
@@ -354,7 +354,7 @@ void bootstrap_rm(const char* peer, bool all)
 {
   std::stringstream cmd;
 
-  cmd << "bootstrap rm";
+  cmd << "ipfs bootstrap rm";
   if (peer && *peer != '\0')
     cmd << " " << peer;
   cmd << " -all " << (all ? "true" : "false");
@@ -366,7 +366,7 @@ void swarm_disconnect(const char* address)
 {
   std::stringstream cmd;
 
-  cmd << "swarm disconnect";
+  cmd << "ipfs swarm disconnect";
   if (address && *address != '\0')
     cmd << " " << address;
 
@@ -377,7 +377,7 @@ void swarm_peers(void)
 {
   std::stringstream cmd;
 
-  cmd << "swarm peers";
+  cmd << "ipfs swarm peers";
 
   invoke(cmd.str());
 }
@@ -386,7 +386,7 @@ void swarm_addrs(void)
 {
   std::stringstream cmd;
 
-  cmd << "swarm addrs";
+  cmd << "ipfs swarm addrs";
 
   invoke(cmd.str());
 }
@@ -395,7 +395,7 @@ void swarm_connect(const char* address)
 {
   std::stringstream cmd;
 
-  cmd << "swarm connect";
+  cmd << "ipfs swarm connect";
   if (address && *address != '\0')
     cmd << " " << address;
 
@@ -406,7 +406,7 @@ void dht_query(const char* peer_id, bool verbose)
 {
   std::stringstream cmd;
 
-  cmd << "dht query";
+  cmd << "ipfs dht query";
   if (peer_id && *peer_id != '\0')
     cmd << " " << peer_id;
   cmd << " -v " << (verbose ? "true" : "false");
@@ -418,7 +418,7 @@ void dht_findprovs(const char* key, bool verbose)
 {
   std::stringstream cmd;
 
-  cmd << "dht findprovs";
+  cmd << "ipfs dht findprovs";
   if (key && *key != '\0')
     cmd << " " << key;
   cmd << " -v " << (verbose ? "true" : "false");
@@ -430,7 +430,7 @@ void dht_findpeer(const char* peer_id)
 {
   std::stringstream cmd;
 
-  cmd << "dht findpeer";
+  cmd << "ipfs dht findpeer";
   if (peer_id && *peer_id != '\0')
     cmd << " " << peer_id;
 
@@ -441,7 +441,7 @@ void ping(const char* peer_id, unsigned int count)
 {
   std::stringstream cmd;
 
-  cmd << "ping";
+  cmd << "ipfs ping";
   if (peer_id && *peer_id != '\0')
     cmd << " " << peer_id;
   if (count > 0)
@@ -454,7 +454,7 @@ void diag_net(unsigned int timeout)
 {
   std::stringstream cmd;
 
-  cmd << "diag net";
+  cmd << "ipfs diag net";
   cmd << " -timeout " << timeout;
 
   invoke(cmd.str());
@@ -464,7 +464,7 @@ void config_get(const char* key)
 {
   std::stringstream cmd;
 
-  cmd << "config";
+  cmd << "ipfs config";
   if (key && *key != '\0')
     cmd << " " << key;
 
@@ -475,7 +475,7 @@ void config_set(const char* key, const char* value)
 {
   std::stringstream cmd;
 
-  cmd << "config";
+  cmd << "ipfs config";
   if (key && *key != '\0')
     cmd << " " << key;
   if (value && *value != '\0')
@@ -488,7 +488,7 @@ void config_show(void)
 {
   std::stringstream cmd;
 
-  cmd << "config show";
+  cmd << "ipfs config show";
 
   invoke(cmd.str());
 }
@@ -497,7 +497,7 @@ void config_edit(void)
 {
   std::stringstream cmd;
 
-  cmd << "config edit";
+  cmd << "ipfs config edit";
 
   invoke(cmd.str());
 }
@@ -506,7 +506,7 @@ void config_replace(const char* file)
 {
   std::stringstream cmd;
 
-  cmd << "config replace";
+  cmd << "ipfs config replace";
   if (file && *file != '\0')
     cmd << " " << file;
 
@@ -517,7 +517,7 @@ void version(void)
 {
   std::stringstream cmd;
 
-  cmd << "version";
+  cmd << "ipfs version";
 
   invoke(cmd.str());
 }
