@@ -71,7 +71,7 @@ set(STANDALONE_SOURCES
 set(LIBRARY_SOURCES
     src/lib.cpp)
 
-set(DEPLIBS
+set(DEPENDENCIES
     ${IPSF_LIBRARY}
     pthread)
 
@@ -81,9 +81,9 @@ set(DEPLIBS
 #
 ################################################################################
 
-add_executable(ipfs_embedded ${IPSF_SOURCES} ${STANDALONE_SOURCES})
+add_executable(ipfs_embedded ${IPSF_EMBEDDED_SOURCES} ${STANDALONE_SOURCES})
 
-target_link_libraries(ipfs_embedded ${DEPLIBS})
+target_link_libraries(ipfs_embedded ${DEPENDENCIES})
 
 ################################################################################
 #
@@ -91,7 +91,7 @@ target_link_libraries(ipfs_embedded ${DEPLIBS})
 #
 ################################################################################
 
-add_library(ipfs STATIC ${IPSF_SOURCES} ${LIBRARY_SOURCES})
+add_library(ipfs STATIC ${IPSF_EMBEDDED_SOURCES} ${LIBRARY_SOURCES})
 
 ################################################################################
 #
