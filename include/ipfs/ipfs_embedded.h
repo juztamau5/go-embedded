@@ -30,7 +30,7 @@ extern "C"
 {
 #endif
   /*!
-   * \brief  Get the IPSF_API_VERSION used during compilation
+   * \brief Get the IPSF_API_VERSION used during compilation
    * \return IPSF_API_VERSION from ipfs_types.h
    */
   const char* get_api_version(void);
@@ -58,14 +58,14 @@ extern "C"
    * \param wrap_with_directory Wrap files with a directory object
    * \param trickle Use trickle-DAG format for DAG generation
    *
-   * Adds contents of <path> to ipfs. Use recursion to add directories. Note
+   * Adds contents of <path> to IPFS. Use recursion to add directories. Note
    * that directories are added recursively, to form the IPFS merkle-DAG. A
    * smarter partial add with a staging area (like git) remains to be implemented.
    */
   void add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_with_directory, bool trickle);
 
   /*!
-   * \brief Show ipfs object data
+   * \brief Show IPFS object data
    *
    * \param ipfs_path The path to the IPSF object(s) to be output
    *
@@ -74,7 +74,7 @@ extern "C"
   void cat(const char* ipfs_path);
 
   /*!
-   * \brief Download ipfs objects
+   * \brief Download IPFS objects
    *
    * \param ipfs_path The path to the IPFS object(s) to be output
    * \param output The path where output should be stored
@@ -138,7 +138,7 @@ extern "C"
    *
    * \param data The data to be stored as an IPFS block
    *
-   * This is a plumbing command for storing raw ipfs blocks.
+   * This is a plumbing command for storing raw IPFS blocks.
    */
   void block_put(const char* data);
 
@@ -147,7 +147,7 @@ extern "C"
    *
    * \param key The base58 multihash of an existing block to get
    *
-   * This is a plumbing command for retrieving information on raw ipfs blocks.
+   * This is a plumbing command for retrieving information on raw IPFS blocks.
    * It outputs the following to stdout:
    *
    *    Key  - the base58 encoded multihash
@@ -241,16 +241,16 @@ extern "C"
   void daemon(bool init, const char* routing, bool mount, bool writable, const char* mount_ipfs, const char* mount_ipns);
 
   /*!
-   * \brief Mount an ipfs read-only mountpoint
+   * \brief Mount an IPFS read-only mountpoint
    *
    * \param f The path where IPFS should be mounted
    * \param n The path where IPNS should be mounted
    *
-   * Mount ipfs at a read-only mountpoint on the OS (default: /ipfs and /ipns).
-   * All ipfs objects will be accessible under that directory. Note that the
+   * Mount IPFS at a read-only mountpoint on the OS (default: /ipfs and /ipns).
+   * All IPFS objects will be accessible under that directory. Note that the
    * root will not be listable, as it is virtual. Access known paths directly.
    *
-   * You may have to create /ipfs and /ipfs before calling mount():
+   * You may have to create /ipfs and /ipns before calling mount():
    *
    *    $ sudo mkdir /ipfs /ipns
    *    $ sudo chown `whoami` /ipfs /ipns
@@ -383,7 +383,7 @@ extern "C"
    *
    * \param address Address of peer to connect to
    *
-   * This closes a connection to a peer address. The address format is an ipfs
+   * This closes a connection to a peer address. The address format is an IPFS
    * multiaddr:
    *
    * swarm disconnect("/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ");
@@ -409,7 +409,7 @@ extern "C"
    *
    * \param address Address of peer to connect to
    *
-   * This opens a connection to a peer address. The address format is an ipfs
+   * This opens a connection to a peer address. The address format is an IPFS
    * multiaddr:
    *
    * swarm_connect("/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ")
@@ -519,7 +519,7 @@ extern "C"
   void config_replace(const char* file);
 
   /*!
-   * \brief Show ipfs version information
+   * \brief Show IPFS version information
    */
   void version(void);
   ///}
