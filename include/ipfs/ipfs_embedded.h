@@ -60,7 +60,8 @@ extern "C"
    *
    * Adds contents of <path> to IPFS. Use recursion to add directories. Note
    * that directories are added recursively, to form the IPFS merkle-DAG. A
-   * smarter partial add with a staging area (like git) remains to be implemented.
+   * smarter partial add with a staging area (like git) remains to be
+   * implemented.
    */
   void add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_with_directory, bool trickle);
 

@@ -23,14 +23,18 @@
 #ifndef __IPSF_TYPES_H__
 #define __IPSF_TYPES_H__
 
-/* Current IPFS API version */
+// Current IPFS API version
 #define IPSF_API_VERSION "0.39.0"
+
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-  // TODO
+
+  // TODO: typedefs and structs
+
 #ifdef __cplusplus
 }
 #endif

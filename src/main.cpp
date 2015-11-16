@@ -18,8 +18,10 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
+ *
  */
 
+// Go generated include file
 #include "ipfs.h"
 
 #include <sstream>
@@ -45,4 +47,3 @@ int main(int argc, const char* argv[])
 
   return 0;
 }
-
