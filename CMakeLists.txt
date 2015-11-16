@@ -23,7 +23,7 @@ include(ExternalProject)
 
 if (GO_FOUND)
   # IPSF repo, without the leading protocol
-  set(IPSF_REPO github.com/juztamau5/go-ipfs)
+  set(GO_IPSF_REPO github.com/juztamau5/go-ipfs)
 
   # For more information, run `go help environment`
   set(ENV{GOPATH} "${CMAKE_BINARY_DIR}")
@@ -39,17 +39,17 @@ if (GO_FOUND)
 
   message(STATUS "Fetching and building IPFS for $ENV{GOOS}_$ENV{GOARCH}")
 
-  execute_process(COMMAND ${GO_EXECUTABLE} get -u -v -buildmode=c-archive ${IPSF_REPO}/cmd/ipfs)
+  execute_process(COMMAND ${GO_EXECUTABLE} get -u -v -buildmode=c-archive ${GO_IPSF_REPO}/cmd/ipfs)
 
-  set(IPSF_OUTPUT_DIR "$ENV{GOPATH}/pkg/$ENV{GOOS}_$ENV{GOARCH}/${IPSF_REPO}/cmd")
+  set(GO_IPSF_OUTPUT_DIR "$ENV{GOPATH}/pkg/$ENV{GOOS}_$ENV{GOARCH}/${GO_IPSF_REPO}/cmd")
 
-  set(IPSF_LIBRARY "${IPSF_OUTPUT_DIR}/ipfs${CMAKE_STATIC_LIBRARY_SUFFIX}")
+  set(GO_IPSF_LIBRARY "${GO_IPSF_OUTPUT_DIR}/ipfs${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
-  if (NOT EXISTS ${IPSF_LIBRARY})
-    message(FATAL_ERROR "Can't find IPFS library: ${IPSF_LIBRARY}")
+  if (NOT EXISTS ${GO_IPSF_LIBRARY})
+    message(FATAL_ERROR "Can't find IPFS library: ${GO_IPSF_LIBRARY}")
   endif()
 
-  include_directories(${IPSF_OUTPUT_DIR})
+  include_directories(${GO_IPSF_OUTPUT_DIR})
 else()
   # Change warning to status when go-ipfs no longer required
   message(WARNING "Go not found. Continuing without go-ipfs")
@@ -72,7 +72,7 @@ set(LIBRARY_SOURCES
     src/lib.cpp)
 
 set(DEPENDENCIES
-    ${IPSF_LIBRARY}
+    ${GO_IPSF_LIBRARY}
     pthread)
 
 ################################################################################
