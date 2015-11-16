@@ -13,7 +13,9 @@ enable_language(CXX)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 find_package(Go 1.5 REQUIRED)
+
 include(ExternalProject)
+include(cmake/UseMultiArch.cmake)
 
 ################################################################################
 #
@@ -92,6 +94,11 @@ target_link_libraries(ipfs_embedded ${DEPENDENCIES})
 ################################################################################
 
 add_library(ipfs STATIC ${IPSF_EMBEDDED_SOURCES} ${LIBRARY_SOURCES})
+
+install(TARGETS ipfs ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES ${GO_IPSF_LIBRARY}
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RENAME go_ipfs${CMAKE_STATIC_LIBRARY_SUFFIX})
 
 ################################################################################
 #
