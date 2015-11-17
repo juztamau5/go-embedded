@@ -23,18 +23,12 @@
 #ifndef __IPSF_EMBEDDED_H__
 #define __IPSF_EMBEDDED_H__
 
-#include "ipfs_types.h"
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-  /*!
-   * \brief Get the IPSF_API_VERSION used during compilation
-   * \return IPSF_API_VERSION from ipfs_types.h
-   */
-  const char* get_api_version(void);
-
   /// @name Basic commands
   ///{
   /*!

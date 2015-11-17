@@ -21,7 +21,7 @@
  *
  */
 
-#include "ipfs/ipfs_embedded.h"
+#include "ipfs/libipfs.h"
 
 // Go generated include file
 #include "ipfs.h"
@@ -44,11 +44,6 @@ using namespace IPSF;
 
 extern "C"
 {
-
-const char* get_api_version(void)
-{
-  return IPSF_API_VERSION;
-}
 
 void init(unsigned int bits, const char* passphrase, bool force)
 {

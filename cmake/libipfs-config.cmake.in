@@ -1,0 +1,25 @@
+# - libipfs config mode
+#
+# Defines the following variables:
+#  libipfs_FOUND        - true
+#  libipfs_VERSION      - version of the IPFS library found, e.g. 0.2
+#  libipfs_INCLUDE_DIRS - header directories with which to compile
+#  libipfs_LINKER_FLAGS - flags that must be passed to the linker
+#  libipfs_LIBRARIES    - names of the libraries with which to link
+#  libipfs_LIBRARY_DIRS - directories in which the libraries are situated
+#
+# propagate these properties from one build system to the other
+set (libipfs_VERSION "@libipfs_VERSION_MAJOR@.@libipfs_VERSION_MINOR@.@libipfs_VERSION_PATCH@")
+set (libipfs_INCLUDE_DIRS @libipfs_INCLUDE_DIRS@ @CMAKE_INSTALL_PREFIX@/include)
+set (libipfs_LIBRARY_DIRS "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+set (libipfs_LINKER_FLAGS "@libipfs_LINKER_FLAGS@")
+set (libipfs_CONFIG_VARS "@libipfs_CONFIG_VARS@")
+
+# libraries come from the build tree where this file was generated
+if(WIN32)
+  set (libipfs_LIBRARY "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/libipfs.lib") # TODO
+else(WIN32)
+  set (libipfs_LIBRARY "-L@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@ -lipfs -lgo-ipfs")
+endif(WIN32)
+set (libipfs_LIBRARIES ${libipfs_LIBRARY} "@libipfs_LIBRARIES@")
+mark_as_advanced (libipfs_LIBRARY)

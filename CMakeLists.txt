@@ -1,8 +1,14 @@
-project(ipfs-embedded)
+project(libipfs)
 
 cmake_minimum_required(VERSION 2.8)
 
 enable_language(CXX)
+
+set(libipfs_NAME libipfs)
+set(libipfs_DESCRIPTION "IPFS library")
+set(libipfs_VERSION_MAJOR 0)
+set(libipfs_VERSION_MINOR 0)
+set(libipfs_VERSION_PATCH 1)
 
 ################################################################################
 #
@@ -65,7 +71,7 @@ endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-set(IPSF_EMBEDDED_SOURCES)
+set(IPSF_SOURCES)
 
 set(STANDALONE_SOURCES
     src/main.cpp)
@@ -77,15 +83,18 @@ set(DEPENDENCIES
     ${GO_IPSF_LIBRARY}
     pthread)
 
+install(FILES include/ipfs/libipfs.h
+        DESTINATION include/ipfs)
+
 ################################################################################
 #
 #  Standalone target
 #
 ################################################################################
 
-add_executable(ipfs_embedded ${IPSF_EMBEDDED_SOURCES} ${STANDALONE_SOURCES})
+add_executable(ipfs_ctrl ${IPSF_SOURCES} ${STANDALONE_SOURCES})
 
-target_link_libraries(ipfs_embedded ${DEPENDENCIES})
+target_link_libraries(ipfs_ctrl ${DEPENDENCIES})
 
 ################################################################################
 #
@@ -93,12 +102,17 @@ target_link_libraries(ipfs_embedded ${DEPENDENCIES})
 #
 ################################################################################
 
-add_library(ipfs STATIC ${IPSF_EMBEDDED_SOURCES} ${LIBRARY_SOURCES})
+add_library(ipfs STATIC ${IPSF_SOURCES} ${LIBRARY_SOURCES})
 
 install(TARGETS ipfs ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${GO_IPSF_LIBRARY}
         DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RENAME go_ipfs${CMAKE_STATIC_LIBRARY_SUFFIX})
+        RENAME libgo-ipfs${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+configure_file(cmake/libipfs-config.cmake.in
+               libipfs-config.cmake @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/libipfs-config.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR_NOARCH}/libipfs)
 
 ################################################################################
 #
