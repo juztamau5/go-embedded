@@ -45,7 +45,7 @@ using namespace IPSF;
 extern "C"
 {
 
-void init(unsigned int bits, const char* passphrase, bool force)
+void ipfs_init(unsigned int bits, const char* passphrase, bool force)
 {
   std::stringstream cmd;
 
@@ -58,7 +58,7 @@ void init(unsigned int bits, const char* passphrase, bool force)
   invoke(cmd.str());
 }
 
-void add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_with_directory, bool trickle)
+void ipfs_add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_with_directory, bool trickle)
 {
   std::stringstream cmd;
 
@@ -73,7 +73,7 @@ void add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_
   invoke(cmd.str());
 }
 
-void cat(const char* ipfs_path)
+void ipfs_cat(const char* ipfs_path)
 {
   std::stringstream cmd;
 
@@ -83,7 +83,7 @@ void cat(const char* ipfs_path)
   invoke(cmd.str());
 }
 
-void get(const char* ipfs_path, const char* output, bool archive, bool compress, unsigned int compression_level)
+void ipfs_get(const char* ipfs_path, const char* output, bool archive, bool compress, unsigned int compression_level)
 {
   std::stringstream cmd;
 
@@ -99,7 +99,7 @@ void get(const char* ipfs_path, const char* output, bool archive, bool compress,
   invoke(cmd.str());
 }
 
-void ls(const char* ipfs_path)
+void ipfs_ls(const char* ipfs_path)
 {
   std::stringstream cmd;
 
@@ -109,7 +109,7 @@ void ls(const char* ipfs_path)
   invoke(cmd.str());
 }
 
-void refs(const char* ipfs_path, const char* format, bool edges, bool unique, bool recursive)
+void ipfs_refs(const char* ipfs_path, const char* format, bool edges, bool unique, bool recursive)
 {
   std::stringstream cmd;
 
@@ -124,7 +124,7 @@ void refs(const char* ipfs_path, const char* format, bool edges, bool unique, bo
   invoke(cmd.str());
 }
 
-void refs_local(void)
+void ipfs_refs_local(void)
 {
   std::stringstream cmd;
 
@@ -133,7 +133,7 @@ void refs_local(void)
   invoke(cmd.str());
 }
 
-void block_put(const char* data)
+void ipfs_block_put(const char* data)
 {
   std::stringstream cmd;
 
@@ -143,7 +143,7 @@ void block_put(const char* data)
   invoke(cmd.str());
 }
 
-void block_stat(const char* key)
+void ipfs_block_stat(const char* key)
 {
   std::stringstream cmd;
 
@@ -153,7 +153,7 @@ void block_stat(const char* key)
   invoke(cmd.str());
 }
 
-void block_get(const char* key)
+void ipfs_block_get(const char* key)
 {
   std::stringstream cmd;
 
@@ -163,7 +163,7 @@ void block_get(const char* key)
   invoke(cmd.str());
 }
 
-void object_data(const char* key)
+void ipfs_object_data(const char* key)
 {
   std::stringstream cmd;
 
@@ -173,7 +173,7 @@ void object_data(const char* key)
   invoke(cmd.str());
 }
 
-void object_links(const char* key)
+void ipfs_object_links(const char* key)
 {
   std::stringstream cmd;
 
@@ -183,7 +183,7 @@ void object_links(const char* key)
   invoke(cmd.str());
 }
 
-void object_get(const char* key)
+void ipfs_object_get(const char* key)
 {
   std::stringstream cmd;
 
@@ -193,7 +193,7 @@ void object_get(const char* key)
   invoke(cmd.str());
 }
 
-void object_put(const char* data)
+void ipfs_object_put(const char* data)
 {
   std::stringstream cmd;
 
@@ -203,7 +203,7 @@ void object_put(const char* data)
   invoke(cmd.str());
 }
 
-void object_stat(const char* key)
+void ipfs_object_stat(const char* key)
 {
   std::stringstream cmd;
 
@@ -213,7 +213,7 @@ void object_stat(const char* key)
   invoke(cmd.str());
 }
 
-void daemon(bool init, const char* routing, bool mount, bool writable, const char* mount_ipfs, const char* mount_ipns)
+void ipfs_daemon(bool init, const char* routing, bool mount, bool writable, const char* mount_ipfs, const char* mount_ipns)
 {
   std::stringstream cmd;
 
@@ -231,7 +231,7 @@ void daemon(bool init, const char* routing, bool mount, bool writable, const cha
   invoke(cmd.str());
 }
 
-void mount(const char* f, const char* n)
+void ipfs_mount(const char* f, const char* n)
 {
   std::stringstream cmd;
 
@@ -244,7 +244,7 @@ void mount(const char* f, const char* n)
   invoke(cmd.str());
 }
 
-void name_publish(const char* name, const char* ipfs_path)
+void ipfs_name_publish(const char* name, const char* ipfs_path)
 {
   std::stringstream cmd;
 
@@ -257,7 +257,7 @@ void name_publish(const char* name, const char* ipfs_path)
   invoke(cmd.str());
 }
 
-void name_resolve(const char* name)
+void ipfs_name_resolve(const char* name)
 {
   std::stringstream cmd;
 
@@ -268,7 +268,7 @@ void name_resolve(const char* name)
   invoke(cmd.str());
 }
 
-void pin_rm(const char* ipfs_path, bool recursive)
+void ipfs_pin_rm(const char* ipfs_path, bool recursive)
 {
   std::stringstream cmd;
 
@@ -280,7 +280,7 @@ void pin_rm(const char* ipfs_path, bool recursive)
   invoke(cmd.str());
 }
 
-void pin_ls(const char* type)
+void ipfs_pin_ls(const char* type)
 {
   std::stringstream cmd;
 
@@ -291,7 +291,7 @@ void pin_ls(const char* type)
   invoke(cmd.str());
 }
 
-void pin_add(const char* ipfs_path, bool recursive)
+void ipfs_pin_add(const char* ipfs_path, bool recursive)
 {
   std::stringstream cmd;
 
@@ -303,7 +303,7 @@ void pin_add(const char* ipfs_path, bool recursive)
   invoke(cmd.str());
 }
 
-void repo_gc(bool quiet)
+void ipfs_repo_gc(bool quiet)
 {
   std::stringstream cmd;
 
@@ -313,7 +313,7 @@ void repo_gc(bool quiet)
   invoke(cmd.str());
 }
 
-void network_id(const char* peer_id)
+void ipfs_network_id(const char* peer_id)
 {
   std::stringstream cmd;
 
@@ -324,7 +324,7 @@ void network_id(const char* peer_id)
   invoke(cmd.str());
 }
 
-void bootstrap_list(void)
+void ipfs_bootstrap_list(void)
 {
   std::stringstream cmd;
 
@@ -333,7 +333,7 @@ void bootstrap_list(void)
   invoke(cmd.str());
 }
 
-void bootstrap_add(const char* peer, bool default_nodes)
+void ipfs_bootstrap_add(const char* peer, bool default_nodes)
 {
   std::stringstream cmd;
 
@@ -345,7 +345,7 @@ void bootstrap_add(const char* peer, bool default_nodes)
   invoke(cmd.str());
 }
 
-void bootstrap_rm(const char* peer, bool all)
+void ipfs_bootstrap_rm(const char* peer, bool all)
 {
   std::stringstream cmd;
 
@@ -357,7 +357,7 @@ void bootstrap_rm(const char* peer, bool all)
   invoke(cmd.str());
 }
 
-void swarm_disconnect(const char* address)
+void ipfs_swarm_disconnect(const char* address)
 {
   std::stringstream cmd;
 
@@ -368,7 +368,7 @@ void swarm_disconnect(const char* address)
   invoke(cmd.str());
 }
 
-void swarm_peers(void)
+void ipfs_swarm_peers(void)
 {
   std::stringstream cmd;
 
@@ -377,7 +377,7 @@ void swarm_peers(void)
   invoke(cmd.str());
 }
 
-void swarm_addrs(void)
+void ipfs_swarm_addrs(void)
 {
   std::stringstream cmd;
 
@@ -386,7 +386,7 @@ void swarm_addrs(void)
   invoke(cmd.str());
 }
 
-void swarm_connect(const char* address)
+void ipfs_swarm_connect(const char* address)
 {
   std::stringstream cmd;
 
@@ -397,7 +397,7 @@ void swarm_connect(const char* address)
   invoke(cmd.str());
 }
 
-void dht_query(const char* peer_id, bool verbose)
+void ipfs_dht_query(const char* peer_id, bool verbose)
 {
   std::stringstream cmd;
 
@@ -409,7 +409,7 @@ void dht_query(const char* peer_id, bool verbose)
   invoke(cmd.str());
 }
 
-void dht_findprovs(const char* key, bool verbose)
+void ipfs_dht_findprovs(const char* key, bool verbose)
 {
   std::stringstream cmd;
 
@@ -421,7 +421,7 @@ void dht_findprovs(const char* key, bool verbose)
   invoke(cmd.str());
 }
 
-void dht_findpeer(const char* peer_id)
+void ipfs_dht_findpeer(const char* peer_id)
 {
   std::stringstream cmd;
 
@@ -432,7 +432,7 @@ void dht_findpeer(const char* peer_id)
   invoke(cmd.str());
 }
 
-void ping(const char* peer_id, unsigned int count)
+void ipfs_ping(const char* peer_id, unsigned int count)
 {
   std::stringstream cmd;
 
@@ -445,7 +445,7 @@ void ping(const char* peer_id, unsigned int count)
   invoke(cmd.str());
 }
 
-void diag_net(unsigned int timeout)
+void ipfs_diag_net(unsigned int timeout)
 {
   std::stringstream cmd;
 
@@ -455,7 +455,7 @@ void diag_net(unsigned int timeout)
   invoke(cmd.str());
 }
 
-void config_get(const char* key)
+void ipfs_config_get(const char* key)
 {
   std::stringstream cmd;
 
@@ -466,7 +466,7 @@ void config_get(const char* key)
   invoke(cmd.str());
 }
 
-void config_set(const char* key, const char* value)
+void ipfs_config_set(const char* key, const char* value)
 {
   std::stringstream cmd;
 
@@ -479,7 +479,7 @@ void config_set(const char* key, const char* value)
   invoke(cmd.str());
 }
 
-void config_show(void)
+void ipfs_config_show(void)
 {
   std::stringstream cmd;
 
@@ -488,7 +488,7 @@ void config_show(void)
   invoke(cmd.str());
 }
 
-void config_edit(void)
+void ipfs_config_edit(void)
 {
   std::stringstream cmd;
 
@@ -497,7 +497,7 @@ void config_edit(void)
   invoke(cmd.str());
 }
 
-void config_replace(const char* file)
+void ipfs_config_replace(const char* file)
 {
   std::stringstream cmd;
 
@@ -508,7 +508,7 @@ void config_replace(const char* file)
   invoke(cmd.str());
 }
 
-void version(void)
+void ipfs_version(void)
 {
   std::stringstream cmd;
 

@@ -40,7 +40,7 @@ extern "C"
    *
    * Initializes IPFS configuration files and generates a new keypair.
    */
-  void init(unsigned int bits, const char* passphrase, bool force);
+  void ipfs_init(unsigned int bits, const char* passphrase, bool force);
 
   /*!
    * \brief Add an object to IPFS
@@ -57,7 +57,7 @@ extern "C"
    * smarter partial add with a staging area (like git) remains to be
    * implemented.
    */
-  void add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_with_directory, bool trickle);
+  void ipfs_add(const char* path, bool recursive, bool quiet, bool progress, bool wrap_with_directory, bool trickle);
 
   /*!
    * \brief Show IPFS object data
@@ -66,7 +66,7 @@ extern "C"
    *
    * Retrieves the object named by <ipfs_path> and outputs the data it contains.
    */
-  void cat(const char* ipfs_path);
+  void ipfs_cat(const char* ipfs_path);
 
   /*!
    * \brief Download IPFS objects
@@ -86,7 +86,7 @@ extern "C"
    * To compress the output with GZIP compression, set <compress> to true. You
    * may also specify the level of compression in the range 1-9.
    */
-  void get(const char* ipfs_path, const char* output, bool archive, bool compress, unsigned int compression_level);
+  void ipfs_get(const char* ipfs_path, const char* output, bool archive, bool compress, unsigned int compression_level);
 
   /*!
    * \brief List links from an object
@@ -98,7 +98,7 @@ extern "C"
    *
    *     <link base58 hash> <link size in bytes> <link name>
    */
-  void ls(const char* ipfs_path);
+  void ipfs_ls(const char* ipfs_path);
 
   /*!
    * \brief List hashes of links from an object
@@ -116,14 +116,14 @@ extern "C"
    *
    * Note: list all refs recursively by setting <recursive> to true.
    */
-  void refs(const char* ipfs_path, const char* format, bool edges, bool unique, bool recursive);
+  void ipfs_refs(const char* ipfs_path, const char* format, bool edges, bool unique, bool recursive);
 
   /*!
    * \brief Lists all local references
    *
    * Displays the hashes of all local objects.
    */
-  void refs_local(void);
+  void ipfs_refs_local(void);
   ///}
 
   /// @name Data structure commands
@@ -135,7 +135,7 @@ extern "C"
    *
    * This is a plumbing command for storing raw IPFS blocks.
    */
-  void block_put(const char* data);
+  void ipfs_block_put(const char* data);
 
   /*!
    * \brief Print information of a raw IPFS block
@@ -148,7 +148,7 @@ extern "C"
    *    Key  - the base58 encoded multihash
    *    Size - the size of the block in bytes
    */
-  void block_stat(const char* key);
+  void ipfs_block_stat(const char* key);
 
   /*!
    * \brief Get a raw IPFS block
@@ -157,7 +157,7 @@ extern "C"
    *
    * This is a plumbing command for retrieving raw IPSF blocks.
    */
-  void block_get(const char* key);
+  void ipfs_block_get(const char* key);
 
   /*!
    * \brief Outputs the raw bytes in an IPFS object
@@ -167,7 +167,7 @@ extern "C"
    * This is a plumbing command for retrieving the raw bytes stored in a DAG
    * node. It outputs to stdout, and <key> is a base58 encoded multihash.
    */
-  void object_data(const char* key);
+  void ipfs_object_data(const char* key);
 
   /*!
    * \brief Outputs the links pointed to by the specified object
@@ -177,7 +177,7 @@ extern "C"
    * This is a plumbing command for retreiving the links from a DAG node. It
    * outputs to stdout, and <key> is a base58 encoded multihash.
    */
-  void object_links(const char* key);
+  void ipfs_object_links(const char* key);
 
   /*!
    * \brief Get and serialize the DAG node named by <key>
@@ -188,7 +188,7 @@ extern "C"
    * node to the format specified <encoding>. It outputs to stdout, and <key> is
    * a base58 encoded multihash.
    */
-  void object_get(const char* key);
+  void ipfs_object_get(const char* key);
 
   /*!
    * \brief Stores input as a DAG object, outputs its key
@@ -198,7 +198,7 @@ extern "C"
    * This is a plumbing command for storing DAG nodes. It reads from stdin, and
    * the output is a base58 encoded multihash.
    */
-  void object_put(const char* data);
+  void ipfs_object_put(const char* data);
 
   /*!
    * \brief Get stats for the DAG node named by <key>
@@ -214,7 +214,7 @@ extern "C"
    *    DataSize        int size of the data segment
    *    CumulativeSize  int cumulative size of object and its references
    */
-  void object_stat(const char* key);
+  void ipfs_object_stat(const char* key);
   ///}
 
   /// @name Advanced commands
@@ -233,7 +233,7 @@ extern "C"
    * network. Most applications that use IPFS will do so by communicating with
    * a daemon over the HTTP API.
    */
-  void daemon(bool init, const char* routing, bool mount, bool writable, const char* mount_ipfs, const char* mount_ipns);
+  void ipfs_daemon(bool init, const char* routing, bool mount, bool writable, const char* mount_ipfs, const char* mount_ipns);
 
   /*!
    * \brief Mount an IPFS read-only mountpoint
@@ -250,7 +250,7 @@ extern "C"
    *    $ sudo mkdir /ipfs /ipns
    *    $ sudo chown `whoami` /ipfs /ipns
    */
-  void mount(const char* f, const char* n);
+  void ipfs_mount(const char* f, const char* n);
 
   /*!
    * \brief Publish an object to IPNS
@@ -261,14 +261,14 @@ extern "C"
    * IPNS is a PKI namespace, where names are the hashes of public keys, and the
    * private key enables publishing new (signed) values.
    */
-  void name_publish(const char* name, const char* ipfs_path);
+  void ipfs_name_publish(const char* name, const char* ipfs_path);
 
   /*!
    * \brief Get the value currently published at an IPNS name
    *
    * \param name The IPNS name to resolve. Defaults to your node's peerID
    */
-  void name_resolve(const char* name);
+  void ipfs_name_resolve(const char* name);
 
   /*!
    * \brief Unpin an object from local storage
@@ -279,7 +279,7 @@ extern "C"
    * Removes the pin from the given object allowing it to be garbage collected
    * if needed.
    */
-  void pin_rm(const char* ipfs_path, bool recursive);
+  void ipfs_pin_rm(const char* ipfs_path, bool recursive);
 
   /*!
    * \brief List objects pinned to local storage
@@ -295,7 +295,7 @@ extern "C"
    *    - "recursive"
    *    - "all"
    */
-  void pin_ls(const char* type);
+  void ipfs_pin_ls(const char* type);
 
   /*!
    * \brief Pin objects to local storage
@@ -305,7 +305,7 @@ extern "C"
    *
    * Retrieves the object named by <ipfs_path> and stores it locally on disk.
    */
-  void pin_add(const char* ipfs_path, bool recursive);
+  void ipfs_pin_add(const char* ipfs_path, bool recursive);
 
   /*!
    * \brief Perform a garbage collection sweep on the repo
@@ -315,7 +315,7 @@ extern "C"
    * This is a plumbing command that will sweep the local set of stored objects
    * and remove ones that are not pinned in order to reclaim hard disk space.
    */
-  void repo_gc(bool quiet);
+  void ipfs_repo_gc(bool quiet);
   ///}
 
   /// @name Network commands
@@ -328,14 +328,14 @@ extern "C"
    * Prints out information about the specified peer, or if no peer is
    * specified, prints out local peers info.
    */
-  void network_id(const char* peer_id);
+  void ipfs_network_id(const char* peer_id);
 
   /*!
    * \brief Show peers in the bootstrap list
    *
    * Peers are output in the format '<multiaddr>/<peerID>'.
    */
-  void bootstrap_list(void);
+  void ipfs_bootstrap_list(void);
 
   /*!
    * \brief Add peers to the bootstrap list
@@ -353,7 +353,7 @@ extern "C"
    * which to learn about other peers in the network. Only edit this list
    * if you understand the risks of adding or removing nodes from this list.
    */
-  void bootstrap_add(const char* peer, bool default_nodes);
+  void ipfs_bootstrap_add(const char* peer, bool default_nodes);
 
   /*!
    * \brief Removes peers from the bootstrap list
@@ -371,7 +371,7 @@ extern "C"
    * if you understand the risks of adding or removing nodes from this list.
    *
    */
-  void bootstrap_rm(const char* peer, bool all);
+  void ipfs_bootstrap_rm(const char* peer, bool all);
 
   /*!
    * \brief Close connection to a given address
@@ -383,21 +383,21 @@ extern "C"
    *
    * swarm disconnect("/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ");
    */
-  void swarm_disconnect(const char* address);
+  void ipfs_swarm_disconnect(const char* address);
 
   /*!
    * \brief List peers with open connections
    *
    * This lists the set of peers this node is connected to.
    */
-  void swarm_peers(void);
+  void ipfs_swarm_peers(void);
 
   /*!
    * \brief List known addresses. Useful to debug.
    *
    * This lists all addresses this node is aware of.
    */
-  void swarm_addrs(void);
+  void ipfs_swarm_addrs(void);
 
   /*!
    * \brief Open connection to a given address
@@ -409,7 +409,7 @@ extern "C"
    *
    * swarm_connect("/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ")
    */
-  void swarm_connect(const char* address);
+  void ipfs_swarm_connect(const char* address);
 
   /*!
    * \brief Run a 'findClosestPeers' query through the DHT
@@ -417,7 +417,7 @@ extern "C"
    * \param peer_id The peer ID to run the query against
    * \param verbose If true, write extra information
    */
-  void dht_query(const char* peer_id, bool verbose);
+  void ipfs_dht_query(const char* peer_id, bool verbose);
 
   /*!
    * \brief Run a 'FindProviders' query through the DHT
@@ -428,14 +428,14 @@ extern "C"
    * The 'FindProviders' query will return a list of peers who are able to
    * provide the value requested.
    */
-  void dht_findprovs(const char* key, bool verbose);
+  void ipfs_dht_findprovs(const char* key, bool verbose);
 
   /*!
    * \brief Run a 'FindPeer' query through the DHT
    *
    * \param peer_id The peer to search for
    */
-  void dht_findpeer(const char* peer_id);
+  void ipfs_dht_findpeer(const char* peer_id);
 
   /*!
    * \brief Measure the latency of a connection
@@ -447,7 +447,7 @@ extern "C"
    * routing system, send pings, wait for pongs, and print out round-trip
    * latency information.
    */
-  void ping(const char* peer_id, unsigned int count);
+  void ipfs_ping(const char* peer_id, unsigned int count);
 
   /*!
    * \brief Generates a network diagnostics report
@@ -464,7 +464,7 @@ extern "C"
    * reasonable timeout values, though network vary. The default timeout is 20
    * seconds.
    */
-  void diag_net(unsigned int timeout);
+  void ipfs_diag_net(unsigned int timeout);
   ///}
 
   /// @name Tool commands
@@ -477,7 +477,7 @@ extern "C"
    * This controls configuration variables. The configuration values are stored
    * in a config file inside your IPFS repository.
    */
-  void config_get(const char* key);
+  void ipfs_config_get(const char* key);
 
   /*!
    * \brief Set IPFS config values
@@ -485,7 +485,7 @@ extern "C"
    * \param key The key of the config entry (e.g. "Addresses.API")
    * \param value The value to set the config entry to
    */
-  void config_set(const char* key, const char* value);
+  void ipfs_config_set(const char* key, const char* value);
 
   /*!
    * \brief Outputs the content of the config file
@@ -493,7 +493,7 @@ extern "C"
    * WARNING: Your private key is stored in the config file, and it will be
    * included in the output of this command.
    */
-  void config_show(void);
+  void ipfs_config_show(void);
 
   /*!
    * \brief Opens the config file for editing in $EDITOR
@@ -501,7 +501,7 @@ extern "C"
    * To use config_edit(), you must have the $EDITOR environment variable set
    * to your preferred text editor.
    */
-  void config_edit(void);
+  void ipfs_config_edit(void);
 
   /*!
    * \brief Replaces the config with <file>
@@ -511,12 +511,12 @@ extern "C"
    * Make sure to back up the config file first if neccessary, this operation
    * can't be undone.
    */
-  void config_replace(const char* file);
+  void ipfs_config_replace(const char* file);
 
   /*!
    * \brief Show IPFS version information
    */
-  void version(void);
+  void ipfs_version(void);
   ///}
 #ifdef __cplusplus
 }
