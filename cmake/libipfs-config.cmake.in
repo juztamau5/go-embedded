@@ -2,7 +2,7 @@
 #
 # Defines the following variables:
 #  libipfs_FOUND        - true
-#  libipfs_VERSION      - version of the IPFS library found, e.g. 0.2
+#  libipfs_VERSION      - version of the IPFS library found, e.g. 0.2.0
 #  libipfs_INCLUDE_DIRS - header directories with which to compile
 #  libipfs_LINKER_FLAGS - flags that must be passed to the linker
 #  libipfs_LIBRARIES    - names of the libraries with which to link
