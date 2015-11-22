@@ -18,7 +18,7 @@ set(libipfs_VERSION_PATCH 1)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-find_package(Go 1.5 REQUIRED)
+find_package(Go 1.5)
 
 include(ExternalProject)
 include(cmake/UseMultiArch.cmake)
@@ -53,11 +53,12 @@ if (GO_FOUND)
 
   set(GO_IPSF_LIBRARY "${GO_IPSF_OUTPUT_DIR}/ipfs${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
-  if (NOT EXISTS ${GO_IPSF_LIBRARY})
-    message(FATAL_ERROR "Can't find IPFS library: ${GO_IPSF_LIBRARY}")
+  if (EXISTS ${GO_IPSF_LIBRARY})
+    include_directories(${GO_IPSF_OUTPUT_DIR})
+    add_definitions(-DHAVE_GO_IPSF)
+  else()
+    message(WARNING "Can't find IPFS library: ${GO_IPSF_LIBRARY}")
   endif()
-
-  include_directories(${GO_IPSF_OUTPUT_DIR})
 else()
   # Change warning to status when go-ipfs no longer required
   message(WARNING "Go not found. Continuing without go-ipfs")
