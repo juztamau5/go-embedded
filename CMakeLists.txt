@@ -37,7 +37,15 @@ if (GO_FOUND)
   set(ENV{GOPATH} "${CMAKE_BINARY_DIR}")
 
   # Available OSes: linux, darwin, windows, android, netbsd, ...?
-  set(ENV{GOOS} linux) # TODO
+  if(WIN32)
+    set(ENV{GOOS} windows)
+  elseif(APPLE)
+    set(ENV{GOOS} darwin)
+  elseif(UNIX)
+    set(ENV{GOOS} linux) # TODO
+  else()
+    message(FATAL_ERROR "Unknown system for Go compiler")
+  endif()
 
   # Available architectures: amd64, 386, arm, arm64, ppc64, ppc64le, ...?
   set(ENV{GOARCH} amd64) # TODO
