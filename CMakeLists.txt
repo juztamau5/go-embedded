@@ -101,9 +101,12 @@ install(FILES include/ipfs/libipfs.h
 #
 ################################################################################
 
-add_executable(ipfs_ctrl ${IPSF_SOURCES} ${STANDALONE_SOURCES})
+### HACK: don't build standalone target on OSX
+if(NOT APPLE)
+  add_executable(ipfs_ctrl ${IPSF_SOURCES} ${STANDALONE_SOURCES})
 
-target_link_libraries(ipfs_ctrl ${DEPENDENCIES})
+  target_link_libraries(ipfs_ctrl ${DEPENDENCIES})
+endif()
 
 ################################################################################
 #
