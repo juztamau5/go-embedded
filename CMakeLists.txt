@@ -94,7 +94,8 @@ if (GO_IPFS_FOUND)
                            pthread)
 endif()
 
-install(FILES include/ipfs/libipfs.h
+install(FILES include/ipfs.h
+              include/ipfs/libipfs.h
         DESTINATION include/ipfs)
 
 ################################################################################
