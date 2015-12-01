@@ -62,6 +62,7 @@ if (GO_FOUND)
   set(GO_IPSF_LIBRARY "${GO_IPSF_OUTPUT_DIR}/ipfs${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
   if (EXISTS ${GO_IPSF_LIBRARY})
+    set(GO_IPFS_FOUND true)
     include_directories(${GO_IPSF_OUTPUT_DIR})
     add_definitions(-DHAVE_GO_IPSF)
   else()
@@ -88,9 +89,10 @@ set(STANDALONE_SOURCES
 set(LIBRARY_SOURCES
     src/lib.cpp)
 
-set(DEPENDENCIES
-    ${GO_IPSF_LIBRARY}
-    pthread)
+if (GO_IPFS_FOUND)
+  list(APPEND DEPENDENCIES ${GO_IPSF_LIBRARY}
+                           pthread)
+endif()
 
 install(FILES include/ipfs/libipfs.h
         DESTINATION include/ipfs)
